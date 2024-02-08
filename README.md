@@ -1,3 +1,12 @@
+Hi Adam, this is regarding your post in https://github.com/hashicorp/terraform/issues/2253#issuecomment-1933226660
+
+> @Poltergeisen .. if there aren't any private endpoints, then the queries fail when trying to apply the terraform for the storage account..
+
+This shouldn't be the case, `azurerm_storage_account` isn't accessing data-plane, it runs via `management.azure.com` endpoint.
+So I would say you have missing dependency on the data-plane components like `azurerm_storage_container` which you should `depends_on = [azurerm_private_endpoint.pe]`.
+Hope this helps. :) For more details you can contact me, I have email in my profile.
+
+
 ![build](https://github.com/azure/gitops-connector/actions/workflows/ci.yaml/badge.svg)
 ![deploy](https://github.com/azure/gitops-connector/actions/workflows/cd.yaml/badge.svg)
 ![publish](https://github.com/azure/gitops-connector/actions/workflows/publish.yaml/badge.svg)
